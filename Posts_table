@@ -1,0 +1,135 @@
+import xml.dom.minidom
+import pandas as pd
+import numpy as np
+import xlwt
+import xlrd
+
+dom=xml.dom.minidom.parse("D:\\Peking University\\Dlib_Group\\chinese_stackexchange_com\\Posts.xml")
+root = dom.documentElement
+item_list=root.getElementsByTagName('row')
+
+#导入贴子内容
+body_list=[]
+for item in item_list:
+    body_list.append(item.getAttribute('body'))
+for i in range(len(item_list)):
+    body_list[i].replace('<p>','')
+    body_list[i].replace('</p>','')
+# print(body_list)
+
+#导入ID
+id_list=[]
+for item in item_list:
+    id_list.append(item.getAttribute('Id'))
+# print(id_list)
+
+#导入标题title
+title_list=[]
+for item in item_list:
+    title_list.append(item.getAttribute('title'))
+# print(title_list)
+
+#导入标签tag
+tag_list=[]
+for item in item_list:
+    tag_list.append(item.getAttribute('Tags'))
+# print(tag_list)
+
+#导入对应问题贴子
+ParentId_list=[]
+for item in item_list:
+    ParentId_list.append(item.getAttribute('ParentId'))
+# print(ParentId_list)
+
+#导入回答数AnswerCount
+AnswerCount_list=[]
+for item in item_list:
+    AnswerCount_list.append(item.getAttribute('AnswerCount'))
+# print(AnswerCount_list)
+
+#导入评论数CommentCount
+CommentCount_list=[]
+for item in item_list:
+    CommentCount_list.append(item.getAttribute('CommentCount'))
+# print(CommentCount_list)
+
+#导入PostTypeId
+PostTypeId_list=[]
+for item in item_list:
+    PostTypeId_list.append(item.getAttribute('PostTypeId'))
+# print(PostTypeId_list)
+
+#导入AcceptAnswerId
+AcceptAnswerId_list=[]
+for item in item_list:
+    AcceptAnswerId_list.append(item.getAttribute('AcceptAnswerId'))
+# print(AcceptAnswerId_list)
+
+#导入创建日期CreationDate
+CreationDate_list=[]
+for item in item_list:
+    CreationDate_list.append(item.getAttribute('CreationDate'))
+# print(CreationDate_list)
+
+#导入最后访问日期LastAccessDate
+LastAccessDate_list=[]
+for item in item_list:
+    LastAccessDate_list.append(item.getAttribute('LastAccessDate'))
+# print(LastAccessDate_list)
+
+#导入Score
+Score_list=[]
+for item in item_list:
+    Score_list.append(item.getAttribute('Score'))
+# print(Score_list)
+
+#导入点击量ViewCount
+ViewCount_list=[]
+for item in item_list:
+    ViewCount_list.append(item.getAttribute('ViewCount'))
+# print(ViewCount_list)
+
+#导入OwnerUserId
+OwnerUserId_list=[]
+for item in item_list:
+    OwnerUserId_list.append(item.getAttribute('OwnerUserId'))
+# print(OwnerUserId_list)
+
+#导入LastEditorUserId
+LastEditorUserId_list=[]
+for item in item_list:
+    LastEditorUserId_list.append(item.getAttribute('LastEditorUserId'))
+# print(LastEditorUserId_list)
+
+#导入LastEditDate
+LastEditDate_list=[]
+for item in item_list:
+    LastEditDate_list.append(item.getAttribute('LastEditDate'))
+# print(LastEditDate_list)
+
+#导入LastActivityDate
+LastActivityDate_list=[]
+for item in item_list:
+    LastActivityDate_list.append(item.getAttribute('LastActivityDate'))
+# print(LastActivityDate_list)
+
+d={'ID':id_list,
+      '标签tag':tag_list,
+      '标题':title_list,
+      '内容':body_list,
+      '对应问题贴子ParentId':ParentId_list,
+      '回答数AnswerConut':AnswerCount_list,
+      '评论数CommentCount':CommentCount_list,
+      'PostTypeId':PostTypeId_list,
+      'AcceptAnswerId':AcceptAnswerId_list,
+      '创建日期CreationDate':CreationDate_list,
+      '最后访问日期LastAccessDate':LastAccessDate_list,
+      '分数Score':Score_list,
+      '点击量ViewCount':ViewCount_list,
+      'OwnerUserId':OwnerUserId_list,
+      'LastEditorUserId':LastEditorUserId_list,
+      'LastEditDate':LastEditDate_list,
+      'LastActivityDate':LastActivityDate_list
+}
+table=pd.DataFrame(d)
+print(table)
